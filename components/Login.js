@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   View,
@@ -23,10 +22,9 @@ export default function Login({ navigation }) {
       return;
     }
 
-    // Simulated login logic
+    // Simulated login success
     console.log("Login attempt:", { email, password });
-    Alert.alert("Login", "Login successful!");
-    // navigation.navigate("Home"); // Uncomment if using React Navigation
+    navigation.replace("Dashboard"); // ✅ Redirect straight to Dashboard
   };
 
   return (
@@ -85,8 +83,8 @@ export default function Login({ navigation }) {
 
       {/* Register Link */}
       <View style={styles.registerContainer}>
-        <Text style={styles.registerText}>Don't have an account?</Text>
-        <TouchableOpacity>
+        <Text style={styles.registerText}>Don’t have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <Text style={styles.registerLink}> Register</Text>
         </TouchableOpacity>
       </View>
