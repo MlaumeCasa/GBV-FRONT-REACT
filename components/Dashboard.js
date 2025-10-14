@@ -5,9 +5,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Animated,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import * as Location from "expo-location";
 
 export default function Dashboard({ navigation }) {
   const features = [
@@ -15,7 +16,52 @@ export default function Dashboard({ navigation }) {
     { id: 2, title: "My Reports", icon: "clipboard", color: "#6366F1", screen: "Reports" },
     { id: 3, title: "View Hotspot Map", icon: "map-marker", color: "#3B82F6", screen: "Map" },
     { id: 4, title: "Resources", icon: "cogs", color: "#0EA5E9", screen: "Resources" },
+    { id: 5, title: "Community Chat", icon: "comments", color: "#8a2be2", screen: "CommunityChat" },
   ];
+
+  // Navigate to community chat after detecting location
+  const navigateToCommunity = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("❌ Permission Denied", "Enable location to join your community.");
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude } = location.coords;
+
+      // Simulate fetching community from backend using location
+      // Replace with your actual API call
+      const response = await fetch(
+        `https://your-backend.com/community?lat=${latitude}&lng=${longitude}`,
+        { method: "GET" }
+      );
+
+      if (!response.ok) throw new Error("Failed to fetch community");
+
+      const community = await response.json();
+
+      if (!community) {
+        Alert.alert("No community found nearby.");
+        return;
+      }
+
+      // Navigate to the CommunityChat screen
+      navigation.navigate("CommunityChat", { communityId: community.id });
+    } catch (err) {
+      console.error(err);
+      Alert.alert("Error", "Could not determine your community.");
+    }
+  };
+
+  const handleFeaturePress = (item) => {
+    if (item.screen === "CommunityChat") {
+      navigateToCommunity();
+    } else {
+      navigation.navigate(item.screen);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -36,7 +82,7 @@ export default function Dashboard({ navigation }) {
             key={item.id}
             activeOpacity={0.85}
             style={[styles.card, { borderLeftColor: item.color }]}
-            onPress={() => navigation.navigate(item.screen)}
+            onPress={() => handleFeaturePress(item)}
           >
             <View style={[styles.iconWrapper, { backgroundColor: item.color + "20" }]}>
               <Icon name={item.icon} size={22} color={item.color} />
@@ -63,7 +109,7 @@ export default function Dashboard({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F3F4F6", // soft gray background
+    backgroundColor: "#F3F4F6",
     padding: 20,
     paddingTop: 50,
   },
