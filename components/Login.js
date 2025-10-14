@@ -22,9 +22,8 @@ export default function Login({ navigation }) {
       return;
     }
 
-    // Simulated login success
     console.log("Login attempt:", { email, password });
-    navigation.replace("Dashboard"); // ✅ Redirect straight to Dashboard
+    navigation.replace("Dashboard"); // Redirect to Dashboard
   };
 
   return (
@@ -33,14 +32,17 @@ export default function Login({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <Text style={styles.title}>Welcome Back</Text>
-      <Text style={styles.subtitle}>Login to continue</Text>
+      <Text style={styles.caption}>
+        Sign in to continue protecting yourself and your community.
+      </Text>
 
       {/* Email Input */}
       <View style={styles.inputContainer}>
-        <Icon name="envelope" size={20} color="#555" style={styles.icon} />
+        <Icon name="envelope" size={20} color="#8a2be2" style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Email"
+          placeholderTextColor="#999"
           keyboardType="email-address"
           autoCapitalize="none"
           value={email}
@@ -50,10 +52,11 @@ export default function Login({ navigation }) {
 
       {/* Password Input */}
       <View style={styles.inputContainer}>
-        <Icon name="lock" size={20} color="#555" style={styles.icon} />
+        <Icon name="lock" size={20} color="#8a2be2" style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Password"
+          placeholderTextColor="#999"
           secureTextEntry={!showPassword}
           value={password}
           onChangeText={setPassword}
@@ -65,7 +68,7 @@ export default function Login({ navigation }) {
           <Icon
             name={showPassword ? "eye" : "eye-slash"}
             size={20}
-            color="#555"
+            color="#8a2be2"
           />
         </TouchableOpacity>
       </View>
@@ -77,7 +80,12 @@ export default function Login({ navigation }) {
 
       {/* Login Button */}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Icon name="sign-in" size={20} color="#fff" style={{ marginRight: 8 }} />
+        <Icon
+          name="sign-in"
+          size={20}
+          color="#fff"
+          style={{ marginRight: 8 }}
+        />
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
@@ -97,32 +105,38 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 25,
     justifyContent: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#F9FAFB",
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: "bold",
-    color: "#333",
+    color: "#8a2be2",
     marginBottom: 5,
     textAlign: "center",
   },
-  subtitle: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 25,
+  caption: {
+    fontSize: 14,
+    color: "#6B7280",
+    marginBottom: 30,
     textAlign: "center",
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    paddingHorizontal: 10,
+    borderColor: "#D1D5DB",
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
     marginBottom: 15,
+    backgroundColor: "#fff",
+    shadowColor: "#8a2be2",
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 2,
   },
   icon: {
-    marginRight: 8,
+    marginRight: 10,
   },
   eyeIcon: {
     marginLeft: "auto",
@@ -130,21 +144,26 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 50,
-    color: "#333",
+    color: "#111827",
   },
   forgot: {
-    color: "#007BFF",
+    color: "#8a2be2",
     textAlign: "right",
     marginBottom: 25,
+    fontWeight: "600",
   },
   button: {
     flexDirection: "row",
-    backgroundColor: "#007BFF",
-    padding: 15,
-    borderRadius: 8,
+    backgroundColor: "#8a2be2",
+    padding: 16,
+    borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
+    shadowColor: "#8a2be2",
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 5,
   },
   buttonText: {
     color: "#fff",
@@ -156,10 +175,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   registerText: {
-    color: "#666",
+    color: "#6B7280",
   },
   registerLink: {
-    color: "#007BFF",
+    color: "#8a2be2",
     fontWeight: "bold",
   },
 });

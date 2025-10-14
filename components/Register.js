@@ -19,6 +19,9 @@ export default function Register({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create an Account</Text>
+      <Text style={styles.caption}>
+        Join us and take the first step towards safety and empowerment.
+      </Text>
 
       <View style={styles.inputContainer}>
         <Icon name="user" size={20} color="gray" style={styles.icon} />
@@ -37,6 +40,8 @@ export default function Register({ navigation }) {
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
       </View>
 
@@ -52,6 +57,7 @@ export default function Register({ navigation }) {
       </View>
 
       <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+        <Icon name="check-circle" size={20} color="#fff" style={{ marginRight: 8 }} />
         <Text style={styles.registerText}>Register</Text>
       </TouchableOpacity>
 
@@ -66,13 +72,65 @@ export default function Register({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: "#f9f9f9" },
-  title: { fontSize: 22, fontWeight: "bold", marginBottom: 20, textAlign: "center" },
-  inputContainer: { flexDirection: "row", alignItems: "center", borderWidth: 1, borderColor: "gray", borderRadius: 8, paddingHorizontal: 10, marginBottom: 15 },
-  icon: { marginRight: 10 },
-  input: { flex: 1, height: 40 },
-  registerButton: { backgroundColor: "green", padding: 12, borderRadius: 8, marginTop: 10, alignItems: "center" },
-  registerText: { color: "white", fontWeight: "bold" },
-  footer: { marginTop: 20, textAlign: "center" },
-  link: { color: "blue", fontWeight: "bold" },
+  container: { 
+    flex: 1, 
+    justifyContent: "center", 
+    padding: 25, 
+    backgroundColor: "#F9FAFB" 
+  },
+  title: { 
+    fontSize: 28, 
+    fontWeight: "bold", 
+    marginBottom: 8, 
+    textAlign: "center",
+    color: "#4B0082" 
+  },
+  caption: {
+    fontSize: 14,
+    color: "#6B7280",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  inputContainer: { 
+    flexDirection: "row", 
+    alignItems: "center", 
+    borderWidth: 1, 
+    borderColor: "#D1D5DB", 
+    borderRadius: 8, 
+    paddingHorizontal: 10, 
+    marginBottom: 15,
+    backgroundColor: "#fff",
+  },
+  icon: { 
+    marginRight: 10 
+  },
+  input: { 
+    flex: 1, 
+    height: 50, 
+    color: "#111827",
+  },
+  registerButton: { 
+    flexDirection: "row",
+    backgroundColor: "#8a2be2", 
+    padding: 15, 
+    borderRadius: 10, 
+    justifyContent: "center", 
+    alignItems: "center", 
+    marginTop: 10 
+  },
+  registerText: { 
+    color: "#fff", 
+    fontWeight: "bold", 
+    fontSize: 16 
+  },
+  footer: { 
+    marginTop: 20, 
+    textAlign: "center",
+    fontSize: 14,
+    color: "#6B7280",
+  },
+  link: { 
+    color: "#8a2be2", 
+    fontWeight: "bold" 
+  },
 });
